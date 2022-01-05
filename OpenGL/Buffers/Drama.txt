@@ -1,0 +1,16 @@
+/* Triangle Drama
+        glBegin(GL_TRIANGLES); //Start Render
+
+
+        /* //Treiangle dosent work lol
+        glColor3f(-1.0f, 0.0f, 0.0f); glVertex3f(0.0f, 1.0f, 0.0f);   //V0(red)
+        glColor3f(0.0f, 1.0f, 0.0f); glVertex3f(-1.0f, -1.0f, 1.0f);   //V1(green)
+        glColor3f(0.0f, 0.0f, 1.0f); glVertex3f(1.0f, -1.0f, 1.0f);   //V2(blue)
+        */
+        /* //triabngle does work
+        glVertex2f(-0.5f, -0.5f); //Label Verticies
+        glVertex2f(0.0f, 0.5f);
+        glVertex2f(0.5f, -0.7f);
+        
+        glEnd(); //End Render
+        */ 

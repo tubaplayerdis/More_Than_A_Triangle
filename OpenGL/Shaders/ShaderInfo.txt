@@ -1,0 +1,3 @@
+When adding a frag or vert file or any type of shader youll want to click the properties or key icon when selecting and change the item type to "Copy"
+
+Whn trying to find all occurences in the project use Ctrl+Shift+H
