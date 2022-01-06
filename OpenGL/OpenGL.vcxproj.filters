@@ -84,5 +84,8 @@
     <Image Include="Textures\Icon_Bird_512x512.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Textures\512x512-logo-27164.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

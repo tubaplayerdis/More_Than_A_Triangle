@@ -203,6 +203,7 @@
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Textures\512x512-logo-27164.png" />
     <Image Include="Textures\Icon_Bird_512x512.png">
       <DeploymentContent>false</DeploymentContent>
     </Image>
