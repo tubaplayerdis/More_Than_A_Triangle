@@ -1,0 +1,87 @@
+﻿Nickocado Avocado Game
+
+
+
+
+
+
+make game where your nikocado avocado in a shopping scooter and you have pick up snacks in stores like walmart or mc donalds and try to get all the food in the store then do a muckbang then you wiegh yourself and you get scored on how fat you are which is determined by the amount of food you were able to pick up during the mission then eat at the mukbang
+
+
+
+
+
+
+
+
+Basic Story Line
+{
+
+
+MISSION
+{
+
+
+[ Spawn in a place(like walmart) or a town(that has fast food places all around) and try to pick up food from all the locations at the place(picking up food will take time ] 
+
+
+}
+
+
+TRAVEL
+{
+        [ Travel home minigame or animation ] 
+        }
+
+
+HOUSE
+{
+
+        [ Eat the food in a mukbang ]
+
+
+[ Then get weighed(mukbang has nothing to do with this just a visual aspect) based on food you got ?(Maybe calculate actual weight of foods to put into the game) ]
+
+
+[ Nickocado then is happy if he is fat and gets sad and throws a fit if he is sad ]
+}
+
+
+[ Repeat ]
+}
+
+
+
+
+LOGIC
+{
+* Ui element describing the amount of food you have
+* Fat bar [Visual representation of fatness on a visual slider](Used at end of game)
+* More unhealthy the food the fatter you get
+* While eating mukbang your fat bar goes up and the amount of food you eat dictates on how fat you are(Amount of food is dictated by the amount you picked up in mission sequence
+* You then weigh yourself(weight is dictated by how full your fat bar is)
+* After weighing nikocado has reaction based off how heavy he is(Fatter the better)
+* If you pick up salads accidentally it will decrease your fat bar in the mukbang
+* If you accidentally run into a gym during mission you die
+* Orlin may attack you with salads during mission
+* You drive around in a shopping scooter on all maps and walk in house travel map you drive a car
+* -Pick up food collectibles(picking up may take some time for certain foods)
+}
+
+
+Scenes
+* Mission(can be any map where you pick up food)
+* Travel(uses travel map)
+* Home(uses Home map)
+
+
+Maps:
+* Walmart(Easy)
+* Target(Medium)
+* Costco(Easy)
+* Home depot(Extra hard)
+* Town 1(Mc donalds, Starbucks(Hard))
+* Town 2(mc donalds, chick fi la, potbelly, arbys, culvers, burger king, taco bell, wendys, dunkin donuts, kfc, pizza hut, dominos, popeyes, little caesars(Extra easy))
+* Town3((Medium))
+* House(Nickcaodo avocados house)
+* Travel
