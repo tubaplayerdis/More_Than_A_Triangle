@@ -18,29 +18,34 @@
 #include "../Texture/Texture.h"
 
 
-GLfloat verticies[] =
+// Vertices coordinates
+GLfloat vertices[] =
+{ //     COORDINATES     /        COLORS      /   TexCoord  //
+    -0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	0.0f, 0.0f,
+    -0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	5.0f, 0.0f,
+     0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	0.0f, 0.0f,
+     0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	5.0f, 0.0f,
+     0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	2.5f, 5.0f
+};
+
+// Indices for vertices order
+GLuint indices[] =
 {
-    //     COORDINATES     /        COLORS      /   TexCoord  //
-   -0.5f, -0.5f, 0.0f,     1.0f, 0.0f, 0.0f,	0.0f, 0.0f, // Lower left corner
-   -0.5f,  0.5f, 0.0f,     0.0f, 1.0f, 0.0f,	0.0f, 1.0f, // Upper left corner
-    0.5f,  0.5f, 0.0f,     0.0f, 0.0f, 1.0f,	1.0f, 1.0f, // Upper right corner
-    0.5f, -0.5f, 0.0f,     1.0f, 1.0f, 1.0f,	1.0f, 0.0f  // Lower right corner
+    0, 1, 2,
+    0, 2, 3,
+    0, 1, 4,
+    1, 2, 4,
+    2, 3, 4,
+    3, 0, 4
 };
 
 GLfloat verticies2[] =
 {
     //     COORDINATES     /        COLORS      /   TexCoord  //
    -1.5f, -1.5f, 0.0f,     1.0f, 0.0f, 0.0f,	0.0f, 0.0f, // Lower left corner
-   -1.5f,  0.5f, 0.0f,     0.0f, 1.0f, 0.0f,	0.0f, 1.0f, // Upper left corner
-    0.5f,  0.5f, 0.0f,     0.0f, 0.0f, 1.0f,	1.0f, 1.0f, // Upper right corner
-    0.5f, -0.5f, 0.0f,     1.0f, 1.0f, 1.0f,	1.0f, 0.0f  // Lower right corner
-};
-
-// Indices for vertices order
-GLuint indices[] =
-{
-   0, 2, 1, //Upper triangle
-   0, 3, 2 //Lower triangle
+   -1.5f,  -0.5f, 0.0f,     0.0f, 1.0f, 0.0f,	0.0f, 1.0f, // Upper left corner
+    -0.5f,  -0.5f, 0.0f,     0.0f, 0.0f, 1.0f,	1.0f, 1.0f, // Upper right corner
+    -0.5f, -1.5f, 0.0f,     1.0f, 1.0f, 1.0f,	1.0f, 0.0f  // Lower right corner
 };
 
 const char* Name_Of_Window = "More than a triangle";
@@ -119,7 +124,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
     VAO VAO1;
     VAO1.Bind();
 
-    VBO VBO1(verticies, sizeof(verticies));
+    VBO VBO1(vertices, sizeof(vertices));
     EBO EBO1(indices, sizeof(indices));
 
     //Links vbo attribues such as coords and color to vao
@@ -153,23 +158,47 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 #ifdef _DEBUG
     WriteLine("Enabling window loop");
+
     //std::cin.get();
 #endif
+
+    float rotation = 0.0f;
+    double prevTime = glfwGetTime();
+
+    glEnable(0x0B71); // To disable wierd glitched with overlap can use GL_DEPTH_TEST for readability also used in clear buffer function
+
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
         glClearColor(0.07f, 0.13f, 0.17f, 1.0f); //Backround color
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         shaderprogram.Activate();
-        /*
+
+        double crntTime = glfwGetTime();
+        if (crntTime - prevTime >= 1 / 60)
+        {
+            rotation += 0.5f;
+            prevTime = crntTime;
+        }
+        
         glm::mat4 model = glm::mat4(1.0f);
         glm::mat4 view = glm::mat4(1.0f);
         glm::mat4 proj = glm::mat4(1.0f);
+        model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
         view = glm::translate(view, glm::vec3(0.0f, -0.5f, -2.0f));
-        proj = glm::perspective(glm::radians(45.0f), (float)(800 / 800), 0.1f, 100.0f);
-        */
+        proj = glm::perspective(glm::radians(45.0f), (float)(WindowWidth / WindowHieght), 0.1f, 100.0f);
+
+        int modelLoc = glGetUniformLocation(shaderprogram.ID, "model");
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+        int viewLoc = glGetUniformLocation(shaderprogram.ID, "view");
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+
+        int projLoc = glGetUniformLocation(shaderprogram.ID, "proj");
+        glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
 
 
         //assings a value ot the uniform; MUST ALWAYS BE DONE AFTER SHADER PROGRAM IS ACTIVIATED
@@ -178,7 +207,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
         VAO1.Bind();
         
         // Draw primitives, number of indices, datatype of indices, index of indices
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);

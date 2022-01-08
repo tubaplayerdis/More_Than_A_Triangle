@@ -192,6 +192,8 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Buffers\Drama.txt" />
+    <Text Include="Ideas\Ideas.txt" />
+    <Text Include="Ideas\Nickocado Avocado Game.txt" />
     <Text Include="Shaders\ShaderInfo.txt" />
   </ItemGroup>
   <ItemGroup>

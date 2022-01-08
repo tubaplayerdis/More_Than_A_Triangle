@@ -75,6 +75,8 @@
   <ItemGroup>
     <Text Include="Buffers\Drama.txt" />
     <Text Include="Shaders\ShaderInfo.txt" />
+    <Text Include="Ideas\Nickocado Avocado Game.txt" />
+    <Text Include="Ideas\Ideas.txt" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="ShaderFiles\default.vert" />
