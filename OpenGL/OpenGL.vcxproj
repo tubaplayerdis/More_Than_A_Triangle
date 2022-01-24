@@ -172,6 +172,7 @@
     <ClCompile Include="Buffers\EBO\EBO.cpp" />
     <ClCompile Include="Buffers\VBO\VAO\VAO.cpp" />
     <ClCompile Include="Buffers\VBO\VBO.cpp" />
+    <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="ConsoleHelp\ConsoleHelp.cpp" />
     <ClCompile Include="Input\Inputs.cpp" />
     <ClCompile Include="Shaders\ShaderClass.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="Buffers\EBO\EBO.h" />
     <ClInclude Include="Buffers\VBO\VAO\VAO.h" />
     <ClInclude Include="Buffers\VBO\VBO.h" />
+    <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="ConsoleHelp\ConsoleHelp.h" />
     <ClInclude Include="Input\Inputs.h" />
     <ClInclude Include="Shaders\ShaderClass.h" />

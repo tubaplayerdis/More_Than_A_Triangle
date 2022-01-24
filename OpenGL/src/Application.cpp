@@ -17,6 +17,10 @@
 #include "../Buffers/EBO/EBO.h"
 #include "../Texture/Texture.h"
 
+//Camera
+
+#include "../Camera/Camera.h"
+
 
 // Vertices coordinates
 GLfloat vertices[] =
@@ -135,8 +139,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
     VBO1.Unbind();
     EBO1.Unbind();
 
-    //gets id of unifrom called scale
-    GLuint uniID = glGetUniformLocation(shaderprogram.ID, "scale");
+    
 
 
 #ifdef _DEBUG
@@ -162,13 +165,14 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
     //std::cin.get();
 #endif
 
-    float rotation = 0.0f;
-    double prevTime = glfwGetTime();
+   
 
+    //Enable depth buffer
     glEnable(0x0B71); // To disable wierd glitched with overlap can use GL_DEPTH_TEST for readability also used in clear buffer function
 
+    Camera camera(WindowWidth, WindowHieght, glm::vec3(0.0f, 0.0f, 2.0f));
 
-    /* Loop until the user closes the window */
+    /* Loop until the user closes the window */;
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
@@ -177,32 +181,15 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
         
         shaderprogram.Activate();
 
-        double crntTime = glfwGetTime();
-        if (crntTime - prevTime >= 1 / 60)
-        {
-            rotation += 0.5f;
-            prevTime = crntTime;
-        }
         
-        glm::mat4 model = glm::mat4(1.0f);
-        glm::mat4 view = glm::mat4(1.0f);
-        glm::mat4 proj = glm::mat4(1.0f);
-        model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
-        view = glm::translate(view, glm::vec3(0.0f, -0.5f, -2.0f));
-        proj = glm::perspective(glm::radians(45.0f), (float)(WindowWidth / WindowHieght), 0.1f, 100.0f);
 
-        int modelLoc = glGetUniformLocation(shaderprogram.ID, "model");
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+       
+        camera.Inputs(window);
+        camera.Matrix(60.0f, 0.1f, 100.0f, shaderprogram, "camMatrix");
 
-        int viewLoc = glGetUniformLocation(shaderprogram.ID, "view");
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+        
+        
 
-        int projLoc = glGetUniformLocation(shaderprogram.ID, "proj");
-        glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
-
-
-        //assings a value ot the uniform; MUST ALWAYS BE DONE AFTER SHADER PROGRAM IS ACTIVIATED
-        glUniform1f(uniID, 0.5f);
         bird.Bind();
         VAO1.Bind();
         
