@@ -51,6 +51,12 @@
     <ClCompile Include="Camera\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Objetcs\Objetcs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleHelp\ConsoleHelp.h">
@@ -77,12 +83,19 @@
     <ClInclude Include="Camera\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Objetcs\Object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Buffers\Drama.txt" />
     <Text Include="Shaders\ShaderInfo.txt" />
     <Text Include="Ideas\Nickocado Avocado Game.txt" />
     <Text Include="Ideas\Ideas.txt" />
+    <Text Include="Help\Management layout.txt" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="ShaderFiles\default.vert" />

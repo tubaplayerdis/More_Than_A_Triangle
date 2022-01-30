@@ -175,6 +175,8 @@
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="ConsoleHelp\ConsoleHelp.cpp" />
     <ClCompile Include="Input\Inputs.cpp" />
+    <ClCompile Include="Scene\Objetcs\Objetcs.cpp" />
+    <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Shaders\ShaderClass.cpp" />
     <ClCompile Include="Shapes\Shapes.h" />
     <ClCompile Include="src\Application.cpp" />
@@ -189,11 +191,14 @@
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="ConsoleHelp\ConsoleHelp.h" />
     <ClInclude Include="Input\Inputs.h" />
+    <ClInclude Include="Scene\Objetcs\Object.h" />
+    <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Shaders\ShaderClass.h" />
     <ClInclude Include="Texture\Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Buffers\Drama.txt" />
+    <Text Include="Help\Management layout.txt" />
     <Text Include="Ideas\Ideas.txt" />
     <Text Include="Ideas\Nickocado Avocado Game.txt" />
     <Text Include="Shaders\ShaderInfo.txt" />

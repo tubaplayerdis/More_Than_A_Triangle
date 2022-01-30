@@ -1,0 +1,15 @@
+How the system works
+
+
+
+			Scene static class
+			Call scene Init() func from appliation.cpp file
+			Then call draw func in scene class to render each time, this hadels buffer swaps etc, just one function call.
+
+			Inside static class
+			Calls all functions seperately for objects while also handling the function for the loop
+
+			Objetcs
+			objects have Init func which are called whn initing program or model, then draw func for use in scene draw function.
+
+			Objects could be Cubes, Models, Etc
