@@ -87,12 +87,20 @@
   <ItemGroup>
     <CopyFileToFolders Include="ShaderFiles\default.vert" />
     <CopyFileToFolders Include="ShaderFiles\default.frag" />
+    <CopyFileToFolders Include="ShaderFiles\light.frag" />
+    <CopyFileToFolders Include="ShaderFiles\light.vert" />
+    <CopyFileToFolders Include="Textures\yellow.png">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\Icon_Bird_512x512.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Textures\512x512-logo-27164.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="J:\Osama bin ladel\single-yellow-plain-one-colour-solid-color-512x512-c-f5cd30-f-24.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

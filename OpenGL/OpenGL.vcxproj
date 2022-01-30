@@ -207,10 +207,22 @@
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="J:\Osama bin ladel\single-yellow-plain-one-colour-solid-color-512x512-c-f5cd30-f-24.png" />
     <Image Include="Textures\512x512-logo-27164.png" />
     <Image Include="Textures\Icon_Bird_512x512.png">
       <DeploymentContent>false</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
     </Image>
+    <CopyFileToFolders Include="Textures\yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="ShaderFiles\light.frag">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ShaderFiles\light.vert">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

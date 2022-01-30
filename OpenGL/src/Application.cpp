@@ -43,13 +43,35 @@ GLuint indices[] =
     3, 0, 4
 };
 
-GLfloat verticies2[] =
+
+
+
+GLfloat lightVertices[] =
+{ //     COORDINATES     //
+    -0.1f, -0.1f,  0.1f,
+    -0.1f, -0.1f, -0.1f,
+     0.1f, -0.1f, -0.1f,
+     0.1f, -0.1f,  0.1f,
+    -0.1f,  0.1f,  0.1f,
+    -0.1f,  0.1f, -0.1f,
+     0.1f,  0.1f, -0.1f,
+     0.1f,  0.1f,  0.1f
+};
+
+GLuint lightIndices[] =
 {
-    //     COORDINATES     /        COLORS      /   TexCoord  //
-   -1.5f, -1.5f, 0.0f,     1.0f, 0.0f, 0.0f,	0.0f, 0.0f, // Lower left corner
-   -1.5f,  -0.5f, 0.0f,     0.0f, 1.0f, 0.0f,	0.0f, 1.0f, // Upper left corner
-    -0.5f,  -0.5f, 0.0f,     0.0f, 0.0f, 1.0f,	1.0f, 1.0f, // Upper right corner
-    -0.5f, -1.5f, 0.0f,     1.0f, 1.0f, 1.0f,	1.0f, 0.0f  // Lower right corner
+    0, 1, 2,
+    0, 2, 3,
+    0, 4, 7,
+    0, 7, 3,
+    3, 7, 6,
+    3, 6, 2,
+    2, 6, 5,
+    2, 5, 1,
+    1, 5, 4,
+    1, 4, 0,
+    4, 5, 6,
+    4, 6, 7
 };
 
 const char* Name_Of_Window = "More than a triangle";
@@ -139,14 +161,49 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
     VBO1.Unbind();
     EBO1.Unbind();
 
+#ifdef _DEBUG
+    Shader lightshader("ShaderFiles\\light.vert", "ShaderFiles\\light.frag");
     
+#else
+    Shader lightshader("light.vert", "light.frag");
+
+#endif
+
+    VAO LightVAO;
+    LightVAO.Bind();
+
+    VBO LightVBO(lightVertices, sizeof(lightVertices));
+    EBO LightEBO(lightIndices, sizeof(lightIndices));
+
+    LightVAO.LinkAttrib(LightVBO, 0, 3, GL_FLOAT, 3 * sizeof(float), (void*)0);
+
+    LightVAO.Unbind();
+    LightVBO.Unbind();
+    LightEBO.Unbind();
+
+    glm::vec3 lightpos = glm::vec3(0.5f, 0.5f, 0.5f);
+    glm::mat4 lightmodel = glm::mat4(1.0f);
+    lightmodel = glm::translate(lightmodel, lightpos);
+
+    glm::vec3 pyramidpos = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::mat4 pyrimidModel = glm::mat4(1.0f);
+    pyrimidModel = glm::translate(pyrimidModel, pyramidpos);
+
+    lightshader.Activate();
+    glUniformMatrix4fv(glGetUniformLocation(lightshader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightmodel));
+    shaderprogram.Activate();
+    glUniformMatrix4fv(glGetUniformLocation(shaderprogram.ID, "model"), 1, GL_FALSE, glm::value_ptr(pyrimidModel));
 
 
 #ifdef _DEBUG
     WriteLine("Starting Texture stuff");
+    
 #endif // _DEBUG
 
-    Texture bird("Textures\\Icon_Bird_512x512.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE); //Something to load from application files on release
+
+    //Need to set debug and non debug versions
+
+    Texture bird("Textures\\yellow.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE); //Something to load from application files on release
     bird.texUnit(shaderprogram, "tex0", 0);
     
 
@@ -155,7 +212,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 #ifdef _DEBUG
     WriteLine("Init classes of buffer objects then unbound them after adding to shader program along with textures started");
-    //std::cin.get();
+    
 #endif // _DEBUG
 
 
@@ -179,22 +236,36 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
         glClearColor(0.07f, 0.13f, 0.17f, 1.0f); //Backround color
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        shaderprogram.Activate();
-
+       
+        
         
 
        
         camera.Inputs(window);
-        camera.Matrix(60.0f, 0.1f, 100.0f, shaderprogram, "camMatrix");
+        camera.updateMatrix(60.0f, 0.1f, 100.0f);
 
         
+        shaderprogram.Activate();
+        camera.Matrix(shaderprogram, "camMatrix");
+
         
 
         bird.Bind();
         VAO1.Bind();
+
+        
         
         // Draw primitives, number of indices, datatype of indices, index of indices
-        glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
+
+        
+
+        lightshader.Activate();
+        camera.Matrix(lightshader, "camMatrix");
+        LightVAO.Bind();
+        glDrawElements(GL_TRIANGLES, sizeof(lightIndices) / sizeof(int), GL_UNSIGNED_INT, 0);
+
+        
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);

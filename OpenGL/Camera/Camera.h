@@ -19,6 +19,7 @@ public:
 	glm::vec3 Position;
 	glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f); //Direction of camera
 	glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f); //Up direction of camera
+	glm::mat4 cameraMatrix = glm::mat4(1.0f);
 
 	bool firstClick = true;
 	
@@ -33,7 +34,11 @@ public:
 	/*
 	* Send view and projection matracies to shader
 	*/
-	void Matrix(float FOVdeg, float nearplane, float farplane, Shader& shader, const char* uniform);
+	void updateMatrix(float FOVdeg, float nearPlane, float farPlane);
+	// Exports the camera matrix to a shader
+	void Matrix(Shader& shader, const char* uniform);
+
+	// camera inputs
 	void Inputs(GLFWwindow* window);
 
 
